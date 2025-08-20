@@ -1,0 +1,33 @@
+{
+  "sensorySettings": {
+    "reducedMotion": false,
+    "highContrast": false,
+    "colorTheme": "calmBlue",
+    "fontSize": "large",
+    "dyslexiaFont": true
+  },
+  "focusSettings": {
+    "defaultFocusTime": 45,
+    "hyperFocusMode": true,
+    "gentleReminders": true,
+    "energyTracking": true
+  },
+  "adhd": {
+    "quickCapture": true,
+    "dopamineRewards": true,
+    "interestBasedTiming": true,
+    "executiveFunctionSupport": true
+  },
+  "autism": {
+    "predictableLayouts": true,
+    "sensoryBreaks": true,
+    "routineReminders": true,
+    "socialBatteryTracking": true
+  },
+  "dyslexia": {
+    "dyslexiaFriendlyFont": true,
+    "increasedLineSpacing": true,
+    "readingRuler": true,
+    "customBackgroundColor": "#faf9f6"
+  }
+}

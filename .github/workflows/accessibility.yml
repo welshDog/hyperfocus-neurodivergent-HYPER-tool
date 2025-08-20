@@ -1,0 +1,40 @@
+name: 🌈💎⚡ Neurodivergent Excellence CI ⚡💎🌈
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  accessibility-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🔧 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: 📦 Install Dependencies
+      run: npm ci
+
+    - name: 🧪 Run Accessibility Tests
+      run: npm test -- --coverage --watchAll=false
+
+    - name: 🏗️ Build Application
+      run: npm run build
+
+    - name: 🔍 Lighthouse Accessibility Audit
+      uses: treosh/lighthouse-ci-action@v9
+      with:
+        configPath: './.lighthouserc.json'
+
+    - name: 🎊 Success Celebration
+      run: |
+        echo "🌈💎⚡ NEURODIVERGENT EXCELLENCE TOOL TESTED! ⚡💎🌈"
+        echo "✅ Accessibility compliance verified!"
+        echo "🧠 Ready to support neurodivergent minds!"

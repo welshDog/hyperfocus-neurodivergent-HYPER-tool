@@ -1,0 +1,67 @@
+{
+  "name": "hyperfocus-neurodivergent-excellence-tool",
+  "version": "1.0.0",
+  "description": "Ultimate productivity tool designed specifically for neurodivergent minds - ADHD/Autism optimized with love!",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron-dev": "ELECTRON_IS_DEV=true electron .",
+    "dist": "npm run build && electron-builder",
+    "package": "electron-builder --publish=never",
+    "prepackage": "npm run build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1",
+    "typescript": "^4.9.5",
+    "@types/node": "^18.15.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "electron": "^22.0.0",
+    "styled-components": "^5.3.6",
+    "framer-motion": "^9.0.0",
+    "@types/styled-components": "^5.1.26",
+    "date-fns": "^2.29.3",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-colorful": "^5.6.1",
+    "use-sound": "^4.0.1"
+  },
+  "devDependencies": {
+    "electron-builder": "^23.6.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "jest-axe": "^7.0.0"
+  },
+  "keywords": [
+    "neurodivergent",
+    "adhd",
+    "autism",
+    "dyslexia",
+    "productivity",
+    "accessibility",
+    "focus",
+    "hyperfocus",
+    "sensory-friendly",
+    "electron"
+  ],
+  "author": "HyperFocus Zone Neurodivergent Community",
+  "license": "MIT",
+  "build": {
+    "appId": "com.hyperfocuszone.neurodivergent-tool",
+    "productName": "HyperFocus Neurodivergent Tool",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "public/electron.js"
+    ]
+  }
+}
