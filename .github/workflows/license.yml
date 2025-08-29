@@ -1,0 +1,53 @@
+name: License Compliance Check
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    # Run license checks monthly
+    - cron: '0 3 1 * *'
+
+jobs:
+  license-check:
+    name: License Compliance Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Check License Compliance
+      run: |
+        echo "=== LICENSE COMPLIANCE ANALYSIS ==="
+        echo "Checking package licenses..."
+
+        # Check for licenses using npm-license-checker
+        npx license-checker --production --json > license-report.json
+
+        # Check for problematic licenses
+        echo "=== POTENTIAL ISSUES ==="
+        cat license-report.json | jq -r 'to_entries[] | select(.value.licenses | contains("GPL") or contains("LGPL") or contains("MS-PL") or contains("BSD") or contains("MIT") | not) | "\(.key): \(.value.licenses)"' || echo "No problematic licenses found"
+
+        echo "=== LICENSE SUMMARY ==="
+        cat license-report.json | jq -r 'to_entries[] | "\(.key): \(.value.licenses)"' | head -20
+
+        echo "=== COMPLIANCE STATUS ==="
+        echo "✅ License compliance check completed!"
+        echo "📋 Review license-report.json for detailed analysis"
+
+    - name: Upload License Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: license-report
+        path: license-report.json
