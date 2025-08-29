@@ -5,8 +5,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "sunday"
-      time: "03:00"
+      day: "monday"
+      time: "06:00"
     open-pull-requests-limit: 10
     reviewers:
       - "welshDog"
@@ -22,8 +22,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "sunday"
-      time: "03:00"
+      day: "monday"
+      time: "06:00"
     open-pull-requests-limit: 5
     reviewers:
       - "welshDog"
@@ -31,3 +31,20 @@ updates:
       - "welshDog"
     commit-message:
       prefix: "ci"
+      include: "scope"
+
+  # Enable version updates for Python (pip)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "welshDog"
+    assignees:
+      - "welshDog"
+    commit-message:
+      prefix: "deps"
+      include: "scope"

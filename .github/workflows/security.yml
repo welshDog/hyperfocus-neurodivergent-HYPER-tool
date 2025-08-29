@@ -1,13 +1,12 @@
-name: Security Code Scanning
+name: "Comprehensive Security Scan"
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ "master", "main" ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ "master", "main" ]
   schedule:
-    # Run security scans weekly on Sundays at 3 AM UTC
-    - cron: '0 3 * * 0'
+    - cron: '0 6 * * 1'  # Weekly on Mondays at 6 AM UTC
 
 jobs:
   codeql-analysis:
@@ -39,6 +38,7 @@ jobs:
       with:
         languages: javascript
         config-file: ./.github/codeql-config.yml
+        queries: security-and-quality
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
@@ -50,3 +50,80 @@ jobs:
         echo "SECURITY ANALYSIS COMPLETE"
         echo "CodeQL security scanning finished!"
         echo "Repository protected with automated security analysis!"
+
+  dependency-check:
+    name: Dependency Vulnerability Check
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run npm audit
+      run: |
+        echo "🔍 Checking for dependency vulnerabilities..."
+        npm audit --audit-level=moderate || true
+
+    - name: Check for high/critical vulnerabilities
+      run: |
+        if [ -f package.json ]; then
+          echo "🚨 Checking for high/critical security vulnerabilities..."
+          npm audit --audit-level=high
+        fi
+      continue-on-error: true
+
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Scan for secrets
+      uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  license-check:
+    name: License Compliance
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install license checker
+      run: npm install -g license-checker
+
+    - name: Check licenses
+      run: |
+        if [ -f package.json ]; then
+          echo "📋 Checking license compliance..."
+          license-checker --json > license-report.json
+          echo "License report generated"
+        else
+          echo "No package.json found, skipping license check"
+        fi
+      continue-on-error: true
+
+    - name: Upload license report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: license-report
+        path: license-report.json
+      continue-on-error: true
