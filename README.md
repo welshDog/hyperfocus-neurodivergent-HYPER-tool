@@ -1,5 +1,9 @@
 # 🌈💎⚡ HYPERFOCUS NEURODIVERGENT EXCELLENCE TOOL ⚡💎🌈
 
+[💎⚡ SUPPORT THE HYPERFOCUS EMPIRE ⚡💎 – Donation & Sponsorship Portal](https://welshdog.github.io/hyperfocuszone.com-Support-Hub-/)
+
+> Join our Focus Warriors, Elite Agents, and Empire Builders to power next-gen ADHD-friendly tools!
+
 > **Welcome to the ultimate productivity companion for beautiful neurodivergent minds!** This isn't just another productivity app - it's a love-letter to ADHD, Autism, and all the amazing ways our brains work. Built BY neurodivergent developers FOR neurodivergent excellence! 🧠✨
 
 ## 🌟 Neurodivergent-Designed Features
